@@ -7,7 +7,7 @@ function Courses() {
     return (
         <>
             <Navbar/>
-            <div className="">
+            <div>
                 <Course/>
             </div>
             <Footer/>

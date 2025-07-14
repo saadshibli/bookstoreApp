@@ -1,9 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
 function Cards({ item }) {
+  const { theme, setTheme } = useContext(ThemeContext); 
   return (
     <div className="mt-6 flex justify-center m-2">
-      <div className="card bg-base-100 w-80 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl dark:bg-slate-900 dark:text-white dark:border">
+      <div className="card w-80 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl dark:text-white dark:border">
         <figure className="px-6 pt-6">
           <img
             src={item.image}

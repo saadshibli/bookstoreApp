@@ -1,37 +1,18 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Login from './Login';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function Navbar() {
-
-    const [theme, setTheme] = useState(localStorage.getItem("theme")?localStorage.getItem("theme"):"light")
-    const element = document.documentElement;
-    useEffect(()=>{
-        if(theme==="dark") {
-            element.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-            document.body.classList.add("dark");
-        } else {
-            element.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-            document.body.classList.remove("dark");
-        }
-    }, [theme]);
+    const { theme, setTheme } = useContext(ThemeContext); 
 
     const [sticky, setSticky] = useState(false);
-    useEffect(()=>{
+    useEffect(() => {
         const handleScroll = () => {
-            if(window.scrollY>0) {
-                setSticky(true);
-            } else {
-                setSticky(false);
-            }
-        }
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        }
-    }, [])
+        setSticky(window.scrollY > 0);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const navItems = (
         <>
@@ -43,7 +24,11 @@ export default function Navbar() {
     )
     return (
         <>
-            <div className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 dark:bg-slate-900 dark:text-white ${sticky ? "sticky-navbar shadow-md bg-base-200 dark:bg-slate-600 dark:text-white duration-300 transition-all ease-in-out" : ""}`}>
+            <div
+            className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 
+                ${sticky ? "shadow-md duration-300 transition-all ease-in-out" : ""} 
+                ${theme === "dark" ? "bg-slate-900 text-white border-gray-700" : "bg-white text-black border-gray-300"}`}
+            >
                 <div className="navbar">
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -66,7 +51,12 @@ export default function Navbar() {
                         </div>
                         <div className="hidden md:block">
                             <label className="flex items-center gap-2">
-                                <input type="search" className="px-3 py-2 rounded-md border grow outline-none dark:bg-slate-900 dark:text-white" placeholder="Search" />
+                                <input
+                                type="search"
+                                className={`px-3 py-2 rounded-md border grow outline-none 
+                                    ${theme === "dark" ? "bg-slate-900 text-white border-gray-700" : "bg-white text-black border-gray-300"}`}
+                                placeholder="Search"
+                                />
                                 <svg 
                                     xmlns="http://www.w3.org/2000/svg" 
                                     viewBox="0 0 16 16" 

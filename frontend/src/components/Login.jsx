@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
 function Login() {
+    const { theme, setTheme } = useContext(ThemeContext);
     const {
         register,
         handleSubmit,
@@ -14,9 +17,8 @@ function Login() {
     return (
         <div>
             <dialog id="my_modal_3" className="modal">
-                <div className=" h-[360px] modal-box dark:bg-slate-900 dark:text-white">
+                <div className={`h-[360px] modal-box ${theme === "dark" ? "bg-slate-900 text-white border-gray-700 border-[4px]" : "bg-white text-black border-[2px] border-pink-500"}`}>
                     <form onSubmit={handleSubmit(onSubmit)} method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
                         <Link to="/" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={()=>document.getElementById("my_modal_3").close()}>✕</Link>
                         <h3 className="font-bold text-lg p-2">Login</h3>
                         {/* Email */}

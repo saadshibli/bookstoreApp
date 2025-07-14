@@ -19,7 +19,6 @@ function Signup() {
                         <form onSubmit={handleSubmit(onSubmit)} method="dialog">
                             <div class="flex justify-between">
                                 <h3 className="font-bold text-lg">Signup</h3>
-                                    {/* if there is a button in form, it will close the modal */}
                                     <Link to="/" className="btn btn-sm btn-circle btn-ghost right-2 top-2">✕</Link>
                             </div>
                             {/* Name */}

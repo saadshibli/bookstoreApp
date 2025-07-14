@@ -1,10 +1,13 @@
 import React from 'react'
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function Footer() {
+  const { theme, setTheme } = useContext(ThemeContext); 
   return (
     <div>
         <hr />
-        <footer className="footer footer-horizontal footer-center text-base-content rounded p-10 dark:bg-slate-900 dark:text-white">
+        <footer className={`footer footer-horizontal footer-center text-base-content rounded p-10 ${theme === "dark" ? "bg-slate-900 text-white border-gray-700" : "bg-white text-black border-gray-300"} `}>
             <nav className="grid grid-flow-col gap-4">
                 <a className="link link-hover">About us</a>
                 <a className="link link-hover">Contact</a>

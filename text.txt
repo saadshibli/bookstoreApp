@@ -5,6 +5,8 @@ npm i -D tailwindcss postcss autoprefixer
 npx tailwind init -p
 npm i -D daisyui@latest
 npm run dev
+npm i react-router-dom
+npm i react-hook-form
 
 npm install react-slick --save
 npm install slick-carousel --save
@@ -12,10 +14,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
+
 goto : " https://v3.tailwindcss.com/docs/guides/vite " for tailwind setup steps
 goto : " https://daisyui.com/docs/install/ " for daisy ui setup steps
 goto : "https://fonts.google.com/" for Google fonts importing in index.css
-goto : "https://react-slick.neostack.com/docs/get-started" for using react slick slider
+goto : "https://react-slick.neostack.com/docs/get-started" for using react slick 
+goto : "https://react-hook-form.com/get-started" for using react hook form
 
 -React Hook:
     -Hooks are functions in React that allow us to manage state, do changes as per the state, and other React features without using class components. They provide a way to reuse stateful logic across components.
@@ -28,3 +32,5 @@ goto : "https://react-slick.neostack.com/docs/get-started" for using react slick
 -React Props:-
     -In React, "props" (properties) are a way to pass data from a parent component to child component.
     -Props allows, components to be dynamic and flexible, once they receive different data and render accordingly
+
+-React Hook Form

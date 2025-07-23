@@ -24,7 +24,7 @@ function Signup() {
             email: data.email,
             password: data.password,
         }
-        await axios.post("http://localhost:4001/user/signup", userInfo)
+        await axios.post("https://bookhavenapp.onrender.com/user/signup", userInfo)
             .then((res) => {
                 console.log(res.data);
                 if(res.data) {

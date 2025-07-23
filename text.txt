@@ -34,3 +34,26 @@ goto : "https://react-hook-form.com/get-started" for using react hook form
     -Props allows, components to be dynamic and flexible, once they receive different data and render accordingly
 
 -React Hook Form
+
+
+
+-Backend:
+    -npm init
+    -npm i express
+    -npm i nodemon
+    -"start": "nodemon index.js" //write inside scripts
+    -npm start
+    -npm i dotenv
+        -process.env.....
+    -npm i mongoose
+
+-frontend:
+    -axios (we use it to send/receive http requests)
+    -npm i axios
+
+-backend:
+    -npm i cors
+    -npm i bcryptjs
+
+-frontend:
+    -npm i react-hot-toast (for beautifull popup)

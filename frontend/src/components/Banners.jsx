@@ -11,7 +11,7 @@ export default function Banners() {
       return;
     }
     alert(`Thank you for subscribing, ${email}!`);
-    setEmail(''); // optional: clear input
+    setEmail(''); 
   };
   return (
     <div className="max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-10">

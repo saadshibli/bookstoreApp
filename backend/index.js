@@ -26,6 +26,16 @@ try {
     console.log("Error: ", error);
 }
 
+// Configure CORS to allow your Vercel frontend URL
+const corsOptions = {
+    origin: "https://bookstore-app-zdgj.vercel.app", // Your deployed frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions)); //
+app.use(express.json());
+
 // defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);

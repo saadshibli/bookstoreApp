@@ -8,24 +8,10 @@ import bookRoute from './route/book.route.js';
 import userRoute from './route/user.route.js';
 const app = express();
 
-app.use(cors()); //cors is a middleware that allows the server to accept requests from different origins
-app.use(express.json()); //express.json() is a middleware that allows the server to accept requests from different origins
-
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
-
-// connect to mongoDB
-try {
-    mongoose.connect(URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-    console.lgo("Connected to mongoDB")
-} catch (error) {
-    console.log("Error: ", error);
-}
 
 // Configure CORS to allow your Vercel frontend URL
 const corsOptions = {
@@ -36,6 +22,20 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); //
 app.use(express.json());
+
+// app.use(cors()); //cors is a middleware that allows the server to accept requests from different origins
+// app.use(express.json()); //express.json() is a middleware that allows the server to accept requests from different origins
+
+// connect to mongoDB
+try {
+    mongoose.connect(URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    console.log("Connected to mongoDB")
+} catch (error) {
+    console.log("Error: ", error);
+}
 
 // defining routes
 app.use("/book", bookRoute);

@@ -1,16 +1,16 @@
-import React from 'react';
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import React from "react";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Cards({ item }) {
-  const { theme, setTheme } = useContext(ThemeContext); 
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
     <div className="mt-6 flex justify-center m-2">
       <div className="card w-80 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl dark:text-white dark:border">
         <figure className="px-6 pt-6">
           <img
             src={item.image}
-            alt={item.title || 'Course image'}
+            alt={item.title || "Course image"}
             className="rounded-xl h-48 w-full object-cover"
           />
         </figure>
@@ -23,7 +23,9 @@ function Cards({ item }) {
             </span>
           </h2>
 
-          <p className="text-gray-500 text-sm mt-2 line-clamp-3">{item.title}</p>
+          <p className="text-gray-500 text-sm mt-2 line-clamp-3">
+            {item.title}
+          </p>
 
           <div className="flex items-center justify-between mt-4">
             <span className="badge badge-outline text-lg font-semibold">

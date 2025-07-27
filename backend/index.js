@@ -14,17 +14,17 @@ const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
 
 // Configure CORS to allow your Vercel frontend URL
-const corsOptions = {
-    origin: "https://bookstore-app-zdgj.vercel.app", // Your deployed frontend URL
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-    optionsSuccessStatus: 204
-};
-app.use(cors(corsOptions)); //
-app.use(express.json());
+// const corsOptions = {
+//     origin: "https://bookstore-app-zdgj.vercel.app", // Your deployed frontend URL
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     credentials: true,
+//     optionsSuccessStatus: 204
+// };
+// app.use(cors(corsOptions)); //
+// app.use(express.json());
 
-// app.use(cors()); //cors is a middleware that allows the server to accept requests from different origins
-// app.use(express.json()); //express.json() is a middleware that allows the server to accept requests from different origins
+app.use(cors()); //cors is a middleware that allows the server to accept requests from different origins
+app.use(express.json()); //express.json() is a middleware that allows the server to accept requests from different origins
 
 // connect to mongoDB
 try {

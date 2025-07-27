@@ -57,3 +57,7 @@ goto : "https://react-hook-form.com/get-started" for using react hook form
 
 -frontend:
     -npm i react-hot-toast (for beautifull popup)
+
+-mongodb
+    -mongoimport --uri "mongodb+srv://bookHaven:YsJLOmNBhMp5UfkV@cluster0.hkr6gi9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" --collection mycollection --type json --file "C:\Users\saads\Desktop\bookStore.books.json" --jsonArray
+[command for importing json file to mongodb atlas]

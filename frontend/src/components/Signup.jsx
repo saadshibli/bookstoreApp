@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Login from "./Login";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { toast } from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
+import Login from "./Login";
 
 function Signup() {
+  const { setAuthUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -24,130 +23,88 @@ function Signup() {
       email: data.email,
       password: data.password,
     };
-    await axios
-      .post("http://localhost:4001/user/signup", userInfo)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          toast.success("Signup Successfully");
-          navigate(from, { replace: true });
-        }
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/signup`, userInfo);
+      if (res.data) {
+        toast.success("Signup Successful!");
+        setAuthUser(res.data.user);
         localStorage.setItem("user", JSON.stringify(res.data.user));
-      })
-      .catch((err) => {
-        if (err.response) {
-          toast.error("Error: " + err.response.data.message);
-          console.log(err);
-        }
-      });
+        navigate(from, { replace: true });
+      }
+    } catch (err) {
+      if (err.response) {
+        toast.error("Error: " + err.response.data.message);
+      }
+    }
   };
 
-  const { theme, setTheme } = useContext(ThemeContext);
-
   return (
-    <>
-      <div className="flex h-screen items-center justify-center">
-        <div className="w-[400px] border-[2px] shadow-md p-5 rounded-md">
-          <div
-            className={`${
-              theme === "dark"
-                ? "bg-slate-900 text-white"
-                : "bg-white text-black"
-            }`}
-          >
-            <form onSubmit={handleSubmit(onSubmit)} method="dialog">
-              <div className="flex justify-between">
-                <h3 className="font-bold text-lg">Signup</h3>
-                <Link
-                  to="/"
-                  className="btn btn-sm btn-circle btn-ghost right-2 top-2"
+    <div className="flex h-screen items-center justify-center">
+      <div className="w-[600px]">
+        <div className="border-[2px] shadow-md p-5 rounded-md dark:bg-slate-900 dark:text-white">
+          <form onSubmit={handleSubmit(onSubmit)} method="dialog">
+            <div className="flex justify-between">
+              <h3 className="font-bold text-lg">Signup</h3>
+              <Link to="/" className="btn btn-sm btn-circle btn-ghost">
+                ✕
+              </Link>
+            </div>
+            <div className="mt-4 space-y-2">
+              <span>Name</span>
+              <br />
+              <input
+                type="text"
+                placeholder="Enter your fullname"
+                className="w-full px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                {...register("fullname", { required: true })}
+              />
+              <br />
+              {errors.fullname && <span className="text-sm text-red-500">This field is required</span>}
+            </div>
+            <div className="mt-4 space-y-2">
+              <span>Email</span>
+              <br />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                {...register("email", { required: true })}
+              />
+              <br />
+              {errors.email && <span className="text-sm text-red-500">This field is required</span>}
+            </div>
+            <div className="mt-4 space-y-2">
+              <span>Password</span>
+              <br />
+              <input
+                type="password"
+                placeholder="Enter your password"
+                className="w-full px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                {...register("password", { required: true })}
+              />
+              <br />
+              {errors.password && <span className="text-sm text-red-500">This field is required</span>}
+            </div>
+            <div className="flex justify-around mt-4">
+              <button className="bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200">
+                Signup
+              </button>
+              <p>
+                Have an account?{" "}
+                <button
+                  type="button"
+                  className="underline text-blue-500 cursor-pointer"
+                  onClick={() => document.getElementById("my_modal_3").showModal()}
                 >
-                  ✕
-                </Link>
-              </div>
-              {/* Name */}
-              <div className="mt-4 space-y-2">
-                <h6>Name</h6>
-                <input
-                  type="text"
-                  placeholder="Enter your fullname"
-                  className={`w-80 px-3 border rounded-md outline-none ${
-                    theme === "dark"
-                      ? "bg-slate-800 text-white placeholder-gray-400"
-                      : "bg-white text-black placeholder-gray-500"
-                  }`}
-                  {...register("fullname", { required: true })}
-                />
-                <br />
-                {errors.fullname && (
-                  <span className="text-sm text-red-500">
-                    This field is required
-                  </span>
-                )}
-              </div>
-              {/* Email */}
-              <div className="mt-4 space-y-2">
-                <h6>Email</h6>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className={`w-80 px-3 border rounded-md outline-none ${
-                    theme === "dark"
-                      ? "bg-slate-800 text-white placeholder-gray-400"
-                      : "bg-white text-black placeholder-gray-500"
-                  }`}
-                  {...register("email", { required: true })}
-                />
-                <br />
-                {errors.email && (
-                  <span className="text-sm text-red-500">
-                    This field is required
-                  </span>
-                )}
-              </div>
-              {/* Password */}
-              <div className="mt-4 space-y-2">
-                <h6>Password</h6>
-                <input
-                  type="password"
-                  placeholder="Enter your Password"
-                  className={`w-80 px-3 border rounded-md outline-none ${
-                    theme === "dark"
-                      ? "bg-slate-800 text-white placeholder-gray-400"
-                      : "bg-white text-black placeholder-gray-500"
-                  }`}
-                  {...register("password", { required: true })}
-                />
-                <br />
-                {errors.password && (
-                  <span className="text-sm text-red-500">
-                    This field is required
-                  </span>
-                )}
-              </div>
-              {/* button */}
-              <div className="flex justify-around mt-4">
-                <button className="bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200">
-                  Signup
+                  Login
                 </button>
-                <p>
-                  Have account?{" "}
-                  <button
-                    className="underline text-blue-500 cursor-pointer px-2"
-                    onClick={() =>
-                      document.getElementById("my_modal_3").showModal()
-                    }
-                  >
-                    Login
-                  </button>{" "}
-                </p>
-                <Login />
-              </div>
-            </form>
-          </div>
+              </p>
+            </div>
+          </form>
         </div>
+        <Login />
       </div>
-    </>
+    </div>
   );
 }
 

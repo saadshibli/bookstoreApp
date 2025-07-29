@@ -1,73 +1,62 @@
+// backend/controller/book.controller.js
 import Book from "../model/book.model.js";
-import axios from "axios"; // Import axios
+import axios from "axios";
 
-const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
+export const getBook = async (req, res) => {
+  try {
+    const searchTerm = req.query.q || "programming";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const offset = (page - 1) * limit;
 
-export const getBook = async(req,res) => {
-    try {
-        // Get search term from query parameter (e.g., /book?q=harry+potter)
-        const searchTerm = req.query.q || "programming"; // Default search term
+    // Requesting more fields from the API
+    const fields = "key,title,author_name,first_publish_year,subject,cover_i,first_sentence";
+    const openLibraryUrl = `https://openlibrary.org/search.json?q=${encodeURIComponent(
+      searchTerm
+    )}&limit=${limit}&offset=${offset}&fields=${fields}`;
 
-        let books = []; // Initialize an empty array to hold books
+    console.log(`Fetching books from: ${openLibraryUrl}`);
 
-        // Construct the Google Books API URL
-        const googleBooksApiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchTerm)}&key=${GOOGLE_BOOKS_API_KEY}`;
+    const response = await axios.get(openLibraryUrl);
+    const { docs, numFound } = response.data;
 
-        console.log(`Fetching books from Google Books API: ${googleBooksApiUrl}`);
+    let books = [];
+    if (docs && docs.length > 0) {
+      books = docs.map((doc) => {
+        const author = doc.author_name ? doc.author_name.join(', ') : 'Unknown Author';
+        const category = doc.subject ? doc.subject[0] : "General";
+        
+        // Use the first sentence if available, otherwise generate a dynamic description
+        const description = doc.first_sentence 
+          ? doc.first_sentence[0] 
+          : `Discover '${doc.title}', a compelling book by ${author}. Delve into the world of ${category.toLowerCase()} and explore a story that has captivated readers since its first publication in ${doc.first_publish_year || 'its era'}.`;
 
-        const googleResponse = await axios.get(googleBooksApiUrl);
-        const googleBooks = googleResponse.data.items; // Google Books API returns results in 'items' array
-
-        if (googleBooks && googleBooks.length > 0) {
-            // Map Google Books API response to your book schema
-            books = googleBooks.map(item => {
-                const volumeInfo = item.volumeInfo;
-                return {
-                    name: volumeInfo.title || "Unknown Title",
-                    // Google Books API doesn't always provide price directly, using a random placeholder or actual if available
-                    price: parseFloat(item.saleInfo?.listPrice?.amount) || (Math.floor(Math.random() * 50) + 10),
-                    category: volumeInfo.categories ? volumeInfo.categories[0] : "General",
-                    image: volumeInfo.imageLinks ? volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/150", // Placeholder image
-                    title: volumeInfo.subtitle || volumeInfo.title || "No subtitle"
-                };
-            });
-            console.log(`Fetched ${books.length} books from Google Books API.`);
-        } else {
-            console.log("No books found from Google Books API. Falling back to MongoDB.");
-            // Fallback to local MongoDB if external API yields no results
-            books = await Book.find();
-            console.log(`Fetched ${books.length} books from MongoDB.`);
-        }
-
-        res.status(200).json(books);
-
-    } catch (error) {
-        console.error("Error fetching books:", error.message);
-        if (error.response) {
-            console.error("Google Books API Error Data:", error.response.data);
-            console.error("Google Books API Error Status:", error.response.status);
-            res.status(error.response.status).json({
-                message: "Error fetching books from external API.",
-                details: error.response.data
-            });
-        } else if (error.request) {
-            console.error("No response received from Google Books API:", error.request);
-            res.status(503).json({ message: "No response from external book API, service unavailable." });
-        } else {
-            console.error("Internal server error:", error.message);
-            res.status(500).json({ message: "An unexpected error occurred.", details: error.message });
-        }
+        return {
+          id: doc.key,
+          name: doc.title,
+          price: Math.floor(Math.random() * 50) + 10,
+          category: category,
+          image: doc.cover_i
+            ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
+            : "https://via.placeholder.com/150",
+          title: doc.title,
+          author: author,
+          publishYear: doc.first_publish_year,
+          description: description
+        };
+      });
+    } else {
+      console.log("No books found from Open Library.");
     }
+
+    res.status(200).json({
+      books,
+      totalBooks: numFound,
+      currentPage: page,
+      totalPages: Math.ceil(numFound / limit),
+    });
+  } catch (error) {
+    console.error("Error fetching books:", error.message);
+    res.status(500).json({ message: "An unexpected error occurred on the server." });
+  }
 };
-
-// import Book from "../model/book.model.js";
-
-// export const getBook = async(req,res) => {
-//     try {
-//         const book = await Book.find();
-//         res.status(200).json(book);
-//     } catch (error) {
-//         console.log("Error: ", error);
-//         res.status(500).json(error);
-//     }
-// };

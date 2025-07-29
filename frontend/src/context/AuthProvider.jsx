@@ -5,11 +5,11 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const initialAuthUser = localStorage.getItem("user");
   const [authUser, setAuthUser] = useState(
-    initialAuthUser ? JSON.parse(initialAuthUser) : undefined
+    initialAuthUser ? JSON.parse(initialAuthUser) : null
   );
 
   return (
-    <AuthContext.Provider value={[authUser, setAuthUser]}>
+    <AuthContext.Provider value={{ authUser, setAuthUser }}>
       {children}
     </AuthContext.Provider>
   );

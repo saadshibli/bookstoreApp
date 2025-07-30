@@ -16,14 +16,15 @@ const corsOptions = {
     credentials: true,
     optionsSuccessStatus: 204
 };
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); 
+app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+// app.use(cors());
+// app.use(express.json());
 
 // Connect to MongoDB
 try {

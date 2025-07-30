@@ -1,17 +1,33 @@
 import React from "react";
 import {useState} from 'react';
 import Banner from "../assets/Banner.png";
+import toast from "react-hot-toast";
 
 export default function Banners() {
   const [email, setEmail] = useState('');
 
-  const handleSubscribe = () => {
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!email) {
-      alert('Please enter your email before subscribing.');
+      toast.error("Please enter your email address.");
       return;
     }
-    alert(`Thank you for subscribing, ${email}!`);
-    setEmail(''); 
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    // Simulate a subscription process
+    const toastId = toast.loading("Subscribing...");
+    setTimeout(() => {
+      toast.success(`Thank you for subscribing, ${email}!`, {
+        id: toastId,
+        duration: 4000,
+      });
+      setEmail("");
+    }, 1500);
   };
   return (
     <div className="max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-10">
@@ -44,7 +60,7 @@ export default function Banners() {
             </svg>
             <input
               type="email"
-              placeholder="mail@site.com"
+              placeholder="Enter your email to subscribe"
               required
               value={email}
               className="bg-transparent outline-none w-full"

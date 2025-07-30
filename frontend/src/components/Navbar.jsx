@@ -42,7 +42,7 @@ function Navbar() {
     <div
       className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         sticky ? "shadow-md bg-base-100" : ""
-      } ${theme === "dark" ? "bg-slate-900 text-white" : ""}`}
+      } ${theme === "dark" ? "bg-slate-900 text-white" : "text-pink-600"}`}
     >
       <div className="navbar">
         <div className="navbar-start">
@@ -51,6 +51,19 @@ function Navbar() {
               <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
             <ul tabIndex={0} className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${theme === 'dark' ? 'bg-slate-900 text-white' : ''}`}>
+              <li className="p-2">
+                <form onSubmit={handleSearch}>
+                  <label className="input input-bordered flex items-center gap-2">
+                    <input
+                      type="text"
+                      className="grow"
+                      placeholder="Search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                  </label>
+                </form>
+              </li>
               {navItems}
             </ul>
           </div>
@@ -62,7 +75,7 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <form onSubmit={handleSearch}>
-              <label className={`input input-bordered flex items-center gap-2 ${theme === "dark" ? "bg-slate-900 text-white" : ""}`}>
+              <label className={`w-[100px] input input-bordered flex items-center gap-2 ${theme === "dark" ? "bg-slate-900 text-white" : ""}`}>
                 <input
                   type="text"
                   className="grow"

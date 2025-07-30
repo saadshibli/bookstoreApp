@@ -7,7 +7,7 @@ function Course() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);  
   const [totalPages, setTotalPages] = useState(1);
 
   const location = useLocation();

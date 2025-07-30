@@ -10,6 +10,14 @@ const app = express();
 
 dotenv.config();
 
+const corsOptions = {
+    origin: "https://bookstore-app-mu-pink.vercel.app/",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
 

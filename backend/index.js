@@ -10,17 +10,29 @@ const app = express();
 
 dotenv.config();
 
-const corsOptions = {
-    origin: "https://bookstore-app-mu-pink.vercel.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-    optionsSuccessStatus: 204
-};
-app.use(cors(corsOptions)); 
-app.use(express.json());
-
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
+
+const allowedOrigins = [
+  "https://bookstore-app-mu-pink.vercel.app",
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+
+app.use(express.json());
+
 
 // // Middleware
 // app.use(cors());

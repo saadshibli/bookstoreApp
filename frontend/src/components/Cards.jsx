@@ -1,9 +1,10 @@
-// frontend/src/components/Cards.jsx
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Cards({ item }) {
   // Create a unique and valid ID for the modal for each card
   const modalId = `modal_${item.id.replace(/[^a-zA-Z0-9]/g, "")}`;
+  const { theme } = useContext(ThemeContext);
 
   return (
     <>
@@ -12,7 +13,11 @@ function Cards({ item }) {
         className="mt-4 my-3 p-3 cursor-pointer"
         onClick={() => document.getElementById(modalId).showModal()}
       >
-        <div className="card w-full h-full bg-base-100 shadow-xl hover:scale-105 duration-200 dark:bg-slate-900 dark:text-white dark:border flex flex-col">
+        <div className={`card w-full h-full bg-base-100 shadow-xl hover:scale-105 duration-200 dark:bg-slate-900 dark:text-white dark:border flex flex-col ${
+            theme === "dark"
+              ? "bg-slate-900 text-white border"
+              : "bg-base-100"
+          }`}>
           <figure className="h-48 flex items-center justify-center p-2 bg-gray-100 dark:bg-slate-800 rounded-t-lg">
             <img
               src={item.image}

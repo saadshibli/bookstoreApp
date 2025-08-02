@@ -13,7 +13,7 @@ function Cards({ item }) {
         className="mt-4 my-3 p-3 cursor-pointer"
         onClick={() => document.getElementById(modalId).showModal()}
       >
-        <div className={`card w-full h-full bg-base-100 shadow-xl hover:scale-105 duration-200 dark:bg-slate-900 dark:text-white dark:border flex flex-col ${
+        <div className={`card w-full h-full bg-base-100 shadow-xl hover:scale-105 duration-200 flex flex-col ${
             theme === "dark"
               ? "bg-slate-900 text-white border"
               : "bg-base-100"

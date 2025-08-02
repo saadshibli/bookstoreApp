@@ -16,7 +16,7 @@ function Cards({ item }) {
         <div className={`card w-full h-full shadow-xl hover:scale-105 duration-200 flex flex-col ${
             theme === "dark"
               ? "bg-slate-900 text-white border"
-              : "bg-base-100"
+              : "bg-white"
           }`}>
           <figure className="h-48 flex items-center justify-center p-2 bg-gray-100 dark:bg-slate-800 rounded-t-lg">
             <img
@@ -49,7 +49,7 @@ function Cards({ item }) {
 
       {/* Modal for the detailed view */}
       <dialog id={modalId} className="modal">
-        <div className="modal-box w-11/12 max-w-3xl dark:bg-slate-800 dark:text-white">
+        <div className={`modal-box w-11/12 max-w-3xl ${theme==="dark"?"bg-slate-900 text-white":"bg-white text-black"}`}>
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕

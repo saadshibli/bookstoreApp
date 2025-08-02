@@ -75,7 +75,7 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <form onSubmit={handleSearch}>
-              <label className={`w-[100px] input input-bordered flex items-center gap-2 ${theme === "dark" ? "bg-slate-900 text-white" : ""}`}>
+              <label className={`w-[100px] input input-bordered flex items-center gap-2 ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"}`}>
                 <input
                   type="text"
                   className="grow"

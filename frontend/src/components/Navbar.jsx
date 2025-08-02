@@ -42,7 +42,7 @@ function Navbar() {
     <div
       className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         sticky ? "shadow-md bg-base-100" : ""
-      } ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"}`}
+      } ${theme === "dark" ? "bg-slate-900 text-white" : ""}`}
     >
       <div className="navbar">
         <div className="navbar-start">

@@ -39,7 +39,7 @@ BookHaven is a modern and feature-rich online bookstore built with the MERN stac
 ## File Structure
 
 The project is organized into two main folders: `frontend` and `backend`.
-  bookstore-app:
+
     backend:
       - controller/       # Handles the business logic for API routes
       - model/            # Mongoose schemas for database entities

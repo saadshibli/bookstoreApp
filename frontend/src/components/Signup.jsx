@@ -57,7 +57,7 @@ function Signup() {
               <input
                 type="text"
                 placeholder="Enter your fullname"
-                className="w-full px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                className={`w-full px-3 py-1 border rounded-md outline-none ${theme==="dark"?"bg-slate-700 text-white":"bg-white text-black"}`}
                 {...register("fullname", { required: true })}
               />
               <br />
@@ -69,7 +69,7 @@ function Signup() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                className={`w-full px-3 py-1 border rounded-md outline-none ${theme==="dark"?"bg-slate-700 text-white":"bg-white text-black"}`}
                 {...register("email", { required: true })}
               />
               <br />
@@ -81,7 +81,7 @@ function Signup() {
               <input
                 type="password"
                 placeholder="Enter your password"
-                className="w-full px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                className={`w-full px-3 py-1 border rounded-md outline-none ${theme==="dark"?"bg-slate-700 text-white":"bg-white text-black"}`}
                 {...register("password", { required: true })}
               />
               <br />

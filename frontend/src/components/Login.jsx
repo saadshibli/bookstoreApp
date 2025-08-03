@@ -53,7 +53,7 @@ function Login() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-80 px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                className={`w-80 px-3 py-1 border rounded-md outline-none ${theme==="dark"?"bg-slate-700 text-white":"bg-white text-black"}`}
                 {...register("email", { required: true })}
               />
               <br />
@@ -65,7 +65,7 @@ function Login() {
               <input
                 type="password"
                 placeholder="Enter your password"
-                className="w-80 px-3 py-1 border rounded-md outline-none dark:bg-slate-700"
+                className={`w-80 px-3 py-1 border rounded-md outline-none ${theme==="dark"?"bg-slate-700 text-white":"bg-white text-black"}`}
                 {...register("password", { required: true })}
               />
               <br />

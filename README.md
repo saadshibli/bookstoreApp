@@ -62,7 +62,9 @@ The project is organized into two main folders: `frontend` and `backend`.
 
 ## Deployment
 
-This application is ready for deployment. The recommended setup is:
+This application is deployed and live at: **[https://bookstore-app-mu-pink.vercel.app/](https://bookstore-app-mu-pink.vercel.app/)**
+
+The recommended setup for deployment is:
 - **Database:** A free cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 - **Backend:** Deployed as a Web Service on [Render](https://render.com/).
 - **Frontend:** Deployed on [Vercel](https://vercel.com/).

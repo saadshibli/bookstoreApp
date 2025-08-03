@@ -52,7 +52,7 @@ export default function Footer() {
                 </div>
             </nav>
             <aside>
-                <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+                <p>Copyright © {new Date().getFullYear()} - All rights reserved by Saad Mohammad Shibli</p>
             </aside>
         </footer>
     </div>

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
 import Login from "./Login";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Signup() {
   const { setAuthUser } = useAuth();
+  const { theme } = useContext(ThemeContext);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -41,7 +43,7 @@ function Signup() {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="w-[600px]">
-        <div className="border-[2px] shadow-md p-5 rounded-md dark:bg-slate-900 dark:text-white">
+        <div className={`border-[2px] shadow-md p-5 rounded-md ${theme==="dark"?"bg-slate-900 text-white":"bg-white text-black"}`}>
           <form onSubmit={handleSubmit(onSubmit)} method="dialog">
             <div className="flex justify-between">
               <h3 className="font-bold text-lg">Signup</h3>

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Login() {
   const { setAuthUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  const { theme } = useContext(ThemeContext);
 
   const {
     register,
@@ -41,7 +43,7 @@ function Login() {
   return (
     <div>
       <dialog id="my_modal_3" className="modal">
-        <div className="modal-box dark:bg-slate-900 dark:text-white">
+        <div className={`modal-box ${theme==="dark"?"bg-slate-900 text-white":"bg-white text-black"}`}>
           <form onSubmit={handleSubmit(onSubmit)} method="dialog">
             <button type="button" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => document.getElementById("my_modal_3").close()}>✕</button>
             <h3 className="font-bold text-lg">Login</h3>

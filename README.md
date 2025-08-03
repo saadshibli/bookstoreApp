@@ -36,17 +36,23 @@ BookHaven is a modern and feature-rich online bookstore built with the MERN stac
 ## File Structure
 
 The project is organized into two main folders: `frontend` and `backend`.
-
-
 /bookstore-app
-|-- /backend
-|   |-- /controller       # Handles the business logic for API routes
-|   |-- /model            # Defines the Mongoose schemas for the database
-|   |-- /route            # Defines the API endpoints
+|
+|-- backend/
+|   |-- controller/       # Handles the business logic for API routes (e.g., book.controller.js)
+|   |-- model/            # Defines the Mongoose schemas for the database (e.g., user.model.js)
+|   |-- route/            # Defines the API endpoints (e.g., book.route.js)
 |   |-- index.js          # The main entry point for the backend server
-|   -- package.json | |-- /frontend |   |-- /src |   |   |-- /assets       # Images and other static assets |   |   |-- /components   # Reusable React components (Navbar, Cards, etc.) |   |   |-- /context      # React Context providers for state management |   |   |-- /home         # Components specific to the homepage |   |   |-- /courses      # Components for the main book catalog page |   |   |-- /pages        # Standalone pages like "About" and "Contact" |   |   |-- App.jsx       # Main application component with routing |   |   -- main.jsx      # The entry point for the React application
-|   `-- package.json
-
+|   -- package.json      # Backend dependencies and scripts | -- frontend/
+|-- src/
+|   |-- assets/       # Images and other static assets
+|   |-- components/   # Reusable React components (Navbar, Cards, etc.)
+|   |-- context/      # React Context providers for state management (Auth, Theme)
+|   |-- home/         # Components specific to the homepage
+|   |-- courses/      # Components for the main book catalog page
+|   |-- pages/        # Standalone pages like "About" and "Contact"
+|   |-- App.jsx       # Main application component with routing logic
+|   -- main.jsx      # The entry point for the React application -- package.json      # Frontend dependencies and scripts
 
 ## Screenshot
 
@@ -68,3 +74,8 @@ This application is ready for deployment. The recommended setup is:
 ## License
 
 This project is licensed under the MIT License.
+
+The MIT License is a permissive free software license originating at the Massachusetts Institute of Technology (MIT). It puts only very limited restrictions on reuse and has, therefore, an excellent license compatibility. You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software.
+
+For the full license text, please see the [Open Source Initiative page for the MIT License](https://opensource.org/licenses/MIT).
+
